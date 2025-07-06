@@ -7,6 +7,24 @@ import numpy as np
 from PIL import Image
 import uuid
 from flask import jsonify
+def get_collections_and_data():
+    try:
+        qdrant = QdrantClient(Config.QDRANT_HOST, port=Config.QDRANT_PORT)
+        collections = qdrant.get_collections().collections
+        data = {}
+        for c in collections:
+            # Get up to 100 points for each collection
+            points = qdrant.scroll(collection_name=c.name, limit=100)[0]
+            data[c.name] = [
+                {
+                    "id": p.id,
+                    "vector": p.vector,
+                    "payload": p.payload
+                } for p in points
+            ]
+        return jsonify({"collections": [c.name for c in collections], "data": data})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 from config import Config
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
