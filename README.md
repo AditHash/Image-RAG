@@ -43,9 +43,10 @@ cd frontend
 npm install
 npm run dev
 ```
-## Architecture
+## Architecture and Demo
 
 ![Architecture Diagram](./imagesearch.drawio.svg)
+![Demo](./demo.webm)
 
 
 ## References
