@@ -43,6 +43,9 @@ cd frontend
 npm install
 npm run dev
 ```
+## Architecture
+
+![Architecture Diagram](./imagesearch.drawio.svg)
 
 
 ## References
